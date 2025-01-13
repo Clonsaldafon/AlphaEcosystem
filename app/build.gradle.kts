@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -56,4 +59,23 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // DI Dagger Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    // Network Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Compose Navigation
+    implementation(libs.androidx.navigation.compose)
+
+    // Hilt Navigation
+    implementation(libs.androidx.hilt.navigation.compose)
+
+}
+
+kapt {
+    correctErrorTypes = true
 }

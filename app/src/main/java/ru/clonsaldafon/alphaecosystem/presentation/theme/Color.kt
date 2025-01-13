@@ -1,4 +1,4 @@
-package ru.clonsaldafon.alphaecosystem.ui.theme
+package ru.clonsaldafon.alphaecosystem.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
