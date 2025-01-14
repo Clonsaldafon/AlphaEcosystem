@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun DataItem(
-    text: String,
+    title: String?,
     data: String?
 ) {
     Row(
@@ -23,7 +23,7 @@ fun DataItem(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = "$text:",
+            text = "$title:",
             style = TextStyle(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold

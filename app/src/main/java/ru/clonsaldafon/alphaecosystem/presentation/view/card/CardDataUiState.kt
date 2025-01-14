@@ -1,4 +1,6 @@
-package ru.clonsaldafon.alphaecosystem.presentation.view
+package ru.clonsaldafon.alphaecosystem.presentation.view.card
+
+import ru.clonsaldafon.alphaecosystem.presentation.model.Card
 
 data class CardDataUiState(
     val number: String = "",

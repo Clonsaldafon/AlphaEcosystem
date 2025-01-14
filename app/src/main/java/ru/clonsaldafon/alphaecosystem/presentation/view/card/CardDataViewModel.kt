@@ -1,4 +1,4 @@
-package ru.clonsaldafon.alphaecosystem.presentation.view
+package ru.clonsaldafon.alphaecosystem.presentation.view.card
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.clonsaldafon.alphaecosystem.domain.LoadCardDataUseCase
 import ru.clonsaldafon.alphaecosystem.presentation.UiState
+import ru.clonsaldafon.alphaecosystem.presentation.model.Card
 import ru.clonsaldafon.alphaecosystem.presentation.toUiState
 import javax.inject.Inject
 
@@ -57,6 +58,7 @@ class CardDataViewModel @Inject constructor(
                         _uiState.update {
                             it.copy(
                                 card = Card(
+                                    number = _uiState.value.number.toInt(),
                                     country = response.value?.country?.name,
                                     coordinates = "${response.value?.country?.latitude} - " +
                                             "${response.value?.country?.longitude}",

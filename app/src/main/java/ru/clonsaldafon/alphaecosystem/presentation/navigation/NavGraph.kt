@@ -8,7 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import ru.clonsaldafon.alphaecosystem.presentation.view.CardDataScreen
+import ru.clonsaldafon.alphaecosystem.presentation.view.card.CardDataScreen
+import ru.clonsaldafon.alphaecosystem.presentation.view.history.HistoryScreen
 
 @Composable
 fun NavGraph(
@@ -23,6 +24,13 @@ fun NavGraph(
     ) {
         composable(route = Routes.CardData.route) {
             CardDataScreen(
+                modifier = modifier,
+                navController = navController
+            )
+        }
+
+        composable(route = Routes.History.route) {
+            HistoryScreen(
                 modifier = modifier,
                 navController = navController
             )

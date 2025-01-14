@@ -74,6 +74,11 @@ dependencies {
     // Hilt Navigation
     implementation(libs.androidx.hilt.navigation.compose)
 
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+
 }
 
 kapt {

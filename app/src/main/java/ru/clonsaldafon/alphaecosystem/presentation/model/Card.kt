@@ -1,6 +1,7 @@
-package ru.clonsaldafon.alphaecosystem.presentation.view
+package ru.clonsaldafon.alphaecosystem.presentation.model
 
 data class Card(
+    val number: Int?,
     val country: String?,
     val coordinates: String?,
     val type: String?,
