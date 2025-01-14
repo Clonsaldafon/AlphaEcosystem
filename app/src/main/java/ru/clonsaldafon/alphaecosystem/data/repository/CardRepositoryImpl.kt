@@ -1,6 +1,5 @@
 package ru.clonsaldafon.alphaecosystem.data.repository
 
-import retrofit2.HttpException
 import ru.clonsaldafon.alphaecosystem.data.db.CardDAO
 import ru.clonsaldafon.alphaecosystem.data.db.CardEntity
 import ru.clonsaldafon.alphaecosystem.data.model.ApiException
@@ -22,13 +21,17 @@ class CardRepositoryImpl @Inject constructor(
                     dao.upsertCard(
                         CardEntity(
                             number = number,
-                            country = it.body()?.country?.name,
-                            coordinates = "${it.body()?.country?.latitude} - " +
-                                    "${it.body()?.country?.longitude}",
+                            scheme = it.body()?.scheme,
                             type = it.body()?.type,
-                            phone = it.body()?.bank?.phone,
+                            bankName = it.body()?.bank?.name,
+                            city = it.body()?.bank?.city,
                             website = it.body()?.bank?.url,
-                            city = it.body()?.bank?.city
+                            phone = it.body()?.bank?.phone,
+                            brand = it.body()?.brand,
+                            country = "${it.body()?.country?.emoji} " +
+                                    "${it.body()?.country?.name}",
+                            latitude = it.body()?.country?.latitude,
+                            longitude = it.body()?.country?.longitude
                         )
                     )
 

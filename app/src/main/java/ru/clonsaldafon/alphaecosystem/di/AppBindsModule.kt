@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import ru.clonsaldafon.alphaecosystem.data.db.CardDAO
 import ru.clonsaldafon.alphaecosystem.data.db.CardDatabase
 import ru.clonsaldafon.alphaecosystem.data.db.MIGRATION_1_2
+import ru.clonsaldafon.alphaecosystem.data.db.MIGRATION_2_3
 import ru.clonsaldafon.alphaecosystem.data.repository.CardRepository
 import ru.clonsaldafon.alphaecosystem.data.repository.CardRepositoryImpl
 import ru.clonsaldafon.alphaecosystem.domain.LoadCardDataUseCase
@@ -46,7 +47,7 @@ interface AppBindsModule {
                     CardDatabase::class.java,
                     "card.db"
                 )
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_2_3)
                 .build()
 
         @Provides

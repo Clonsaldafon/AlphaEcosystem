@@ -11,12 +11,16 @@ data class CardEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val number: Int?,
-    val country: String?,
-    val coordinates: String?,
+    val scheme: String?,
     val type: String?,
-    val phone: String?,
+    val bankName: String?,
+    val city: String?,
     val website: String?,
-    val city: String?
+    val phone: String?,
+    val brand: String?,
+    val country: String?,
+    val latitude: Int?,
+    val longitude: Int?
 ) {
 
     companion object {
@@ -28,5 +32,16 @@ data class CardEntity(
 val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(db: SupportSQLiteDatabase) {
         db.execSQL("ALTER TABLE cards ADD COLUMN number INTEGER")
+    }
+}
+
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE cards ADD COLUMN scheme TEXT")
+        db.execSQL("ALTER TABLE cards ADD COLUMN bankName TEXT")
+        db.execSQL("ALTER TABLE cards ADD COLUMN brand TEXT")
+        db.execSQL("ALTER TABLE cards ADD COLUMN latitude INT")
+        db.execSQL("ALTER TABLE cards ADD COLUMN longitude INT")
+        db.execSQL("ALTER TABLE cards DROP COLUMN coordinates")
     }
 }

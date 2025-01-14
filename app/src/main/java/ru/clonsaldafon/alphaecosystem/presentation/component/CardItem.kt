@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.clonsaldafon.alphaecosystem.presentation.model.Card
@@ -39,38 +40,55 @@ fun CardItem(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DataItem(
-            title = "BIN",
-            data = (if (card?.number == null) "" else card.number).toString()
+            title = "BIN/IIN",
+            data = (card?.number ?: "").toString()
         )
 
         DataItem(
-            title = "Country",
-            data = card?.country
+            title = "SCHEME",
+            data = card?.scheme
         )
 
         DataItem(
-            title = "Coordinates",
-            data = card?.coordinates
-        )
-
-        DataItem(
-            title = "Type",
+            title = "TYPE",
             data = card?.type
         )
 
         DataItem(
-            title = "Phone",
-            data = card?.phone
+            title = "BANK",
+            data = "${card?.bankName ?: ""}\n" +
+                    "${card?.website ?: ""}\n" +
+                    (card?.phone ?: "")
         )
 
         DataItem(
-            title = "Website",
-            data = card?.website
+            title = "BRAND",
+            data = card?.brand
         )
 
         DataItem(
-            title = "City",
-            data = card?.city
+            title = "COUNTRY",
+            data = card?.country
+        )
+
+        DataItem(
+            title = "LATITUDE",
+            data = (card?.latitude ?: "").toString()
+        )
+
+        DataItem(
+            title = "LONGITUDE",
+            data = (card?.longitude ?: "").toString()
         )
     }
+}
+
+@Preview(
+    showBackground = true
+)
+@Composable
+fun CardItemPreview() {
+    CardItem(
+        card = null
+    )
 }

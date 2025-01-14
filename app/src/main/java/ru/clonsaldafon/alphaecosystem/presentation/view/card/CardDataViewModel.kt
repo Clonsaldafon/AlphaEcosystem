@@ -59,13 +59,17 @@ class CardDataViewModel @Inject constructor(
                             it.copy(
                                 card = Card(
                                     number = _uiState.value.number.toInt(),
-                                    country = response.value?.country?.name,
-                                    coordinates = "${response.value?.country?.latitude} - " +
-                                            "${response.value?.country?.longitude}",
+                                    scheme = response.value?.scheme,
                                     type = response.value?.type,
-                                    phone = response.value?.bank?.phone,
+                                    bankName = response.value?.bank?.name,
+                                    city = response.value?.bank?.city,
                                     website = response.value?.bank?.url,
-                                    city = response.value?.bank?.city
+                                    phone = response.value?.bank?.phone,
+                                    brand = response.value?.brand,
+                                    country = "${response.value?.country?.emoji} " +
+                                            "${response.value?.country?.name}",
+                                    latitude = response.value?.country?.latitude,
+                                    longitude = response.value?.country?.longitude
                                 )
                             )
                         }

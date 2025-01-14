@@ -45,12 +45,16 @@ class HistoryViewModel @Inject constructor(
                             cards.add(
                                 Card(
                                     number = it.number,
-                                    country = it.country,
-                                    coordinates = it.coordinates,
+                                    scheme = it.scheme,
                                     type = it.type,
-                                    phone = it.phone,
+                                    bankName = it.bankName,
+                                    city = it.city,
                                     website = it.website,
-                                    city = it.city
+                                    phone = it.phone,
+                                    brand = it.brand,
+                                    country = it.country,
+                                    latitude = it.latitude,
+                                    longitude = it.longitude
                                 )
                             )
                         }
