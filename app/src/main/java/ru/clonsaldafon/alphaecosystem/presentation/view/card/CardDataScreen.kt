@@ -35,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import ru.clonsaldafon.alphaecosystem.R
 import ru.clonsaldafon.alphaecosystem.presentation.component.CardItem
+import ru.clonsaldafon.alphaecosystem.presentation.component.LoadingProgressBar
 import ru.clonsaldafon.alphaecosystem.presentation.navigation.Routes
 
 @Composable
@@ -45,119 +46,133 @@ fun CardDataScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    Scaffold(
-        modifier = modifier,
-        bottomBar = {
-            BottomAppBar {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    IconButton(
-                        onClick = {}
+    if (uiState.isLoading) {
+        LoadingProgressBar()
+    } else {
+        Scaffold(
+            modifier = modifier,
+            bottomBar = {
+                BottomAppBar {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_card),
-                            contentDescription = null
-                        )
-                    }
-
-                    IconButton(
-                        onClick = {
-                            navController?.navigate(Routes.History.route)
+                        IconButton(
+                            onClick = {}
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_card),
+                                contentDescription = null
+                            )
                         }
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_history),
-                            contentDescription = null
-                        )
+
+                        IconButton(
+                            onClick = {
+                                navController?.navigate(Routes.History.route)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_history),
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             }
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    color = Color.White
-                )
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        ) { innerPadding ->
             Column(
                 modifier = Modifier
-                    .padding(
-                        horizontal = 20.dp
-                    ),
-                verticalArrangement = Arrangement.spacedBy(40.dp),
+                    .fillMaxSize()
+                    .background(
+                        color = Color.White
+                    )
+                    .padding(innerPadding),
+                verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
                         .padding(
-                            horizontal = 40.dp
+                            horizontal = 20.dp
                         ),
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(40.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    TextField(
-                        value = uiState.number,
-                        onValueChange = { value ->
-                            if (value.all { it.isDigit() })
-                                viewModel.onEvent(CardDataEvent.OnNumberChanged(value))
-                        },
-                        placeholder = {
-                            Text(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                text = "45717360",
-                                style = TextStyle(
-                                    fontSize = 20.sp,
-                                    textAlign = TextAlign.Center
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 40.dp
+                            ),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        TextField(
+                            value = uiState.number,
+                            onValueChange = { value ->
+                                if (value.all { it.isDigit() })
+                                    viewModel.onEvent(CardDataEvent.OnNumberChanged(value))
+                            },
+                            placeholder = {
+                                Text(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    text = "45717360",
+                                    style = TextStyle(
+                                        fontSize = 20.sp,
+                                        textAlign = TextAlign.Center
+                                    )
                                 )
-                            )
-                        },
-                        supportingText = {
-                            Text(
-                                text = "Enter the first 6 to 8 digits of a card number (BIN/IIN)",
-                                style = TextStyle(
-                                    textAlign = TextAlign.Center
+                            },
+                            supportingText = {
+                                Text(
+                                    text = "Enter the first 6 to 8 digits of a card number " +
+                                            "(BIN/IIN)",
+                                    style = TextStyle(
+                                        textAlign = TextAlign.Center
+                                    )
                                 )
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Number
+                            ),
+                            textStyle = TextStyle(
+                                fontSize = 20.sp,
+                                textAlign = TextAlign.Center
                             )
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Number
-                        ),
-                        textStyle = TextStyle(
-                            fontSize = 20.sp,
+                        )
+
+                        Button(
+                            onClick = {
+                                viewModel.onEvent(
+                                    CardDataEvent.OnSubmit { card ->
+
+                                    }
+                                )
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
+                                contentDescription = null
+                            )
+                        }
+                    }
+
+                    Text(
+                        text = uiState.error,
+                        style = TextStyle(
+                            color = Color.Red,
+                            fontSize = 16.sp,
                             textAlign = TextAlign.Center
                         )
                     )
 
-                    Button(
-                        onClick = {
-                            viewModel.onEvent(
-                                CardDataEvent.OnSubmit { card ->
-
-                                }
-                            )
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
-                            contentDescription = null
-                        )
-                    }
+                    CardItem(
+                        card = uiState.card
+                    )
                 }
-
-                CardItem(
-                    card = uiState.card
-                )
             }
         }
     }

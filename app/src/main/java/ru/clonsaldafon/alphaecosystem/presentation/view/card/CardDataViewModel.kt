@@ -70,7 +70,24 @@ class CardDataViewModel @Inject constructor(
                             )
                         }
                     }
-                    is UiState.Failure -> {}
+                    is UiState.Failure -> {
+                        when (response.code) {
+                            404 -> {
+                                _uiState.update {
+                                    it.copy(
+                                        error = "The card was not found"
+                                    )
+                                }
+                            }
+                            429 -> {
+                                _uiState.update {
+                                    it.copy(
+                                        error = "You can send no more than 5 requests per hour"
+                                    )
+                                }
+                            }
+                        }
+                    }
                     is UiState.Loading -> {}
                 }
             }

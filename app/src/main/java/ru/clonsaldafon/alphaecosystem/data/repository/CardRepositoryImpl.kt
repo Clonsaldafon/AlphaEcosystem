@@ -3,6 +3,7 @@ package ru.clonsaldafon.alphaecosystem.data.repository
 import retrofit2.HttpException
 import ru.clonsaldafon.alphaecosystem.data.db.CardDAO
 import ru.clonsaldafon.alphaecosystem.data.db.CardEntity
+import ru.clonsaldafon.alphaecosystem.data.model.ApiException
 import ru.clonsaldafon.alphaecosystem.data.model.CardDataResponse
 import ru.clonsaldafon.alphaecosystem.data.service.CardService
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class CardRepositoryImpl @Inject constructor(
                     Result.success(it.body())
                 }
                 else {
-                    Result.failure(HttpException(it))
+                    Result.failure(ApiException(it.message(), it.code()))
                 }
             },
             onFailure = {

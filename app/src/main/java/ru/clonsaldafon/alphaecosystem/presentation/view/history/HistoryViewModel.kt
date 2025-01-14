@@ -61,7 +61,14 @@ class HistoryViewModel @Inject constructor(
                             )
                         }
                     }
-                    is UiState.Failure -> {}
+                    is UiState.Failure -> {
+                        _uiState.update {
+                            it.copy(
+                                error = "An error occurred while trying to download " +
+                                        "the query history"
+                            )
+                        }
+                    }
                     is UiState.Loading -> {}
                 }
             }
