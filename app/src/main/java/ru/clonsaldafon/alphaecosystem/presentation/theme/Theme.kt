@@ -1,4 +1,4 @@
-package ru.clonsaldafon.alphaecosystem.ui.theme
+package ru.clonsaldafon.alphaecosystem.presentation.theme
 
 import android.app.Activity
 import android.os.Build
